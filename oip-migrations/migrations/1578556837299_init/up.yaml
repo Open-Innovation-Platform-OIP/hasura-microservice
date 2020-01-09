@@ -1,0 +1,3208 @@
+- args:
+    allowlist: []
+    functions:
+    - search_problems_multiword
+    - search_problems_v2
+    - search_solutions_v2
+    - search_users
+    query_collections: []
+    remote_schemas: []
+    tables:
+    - array_relationships:
+      - comment: null
+        name: user_locations
+        using:
+          foreign_key_constraint_on:
+            column: location_id
+            table: user_locations
+      - comment: null
+        name: enrichment_locations
+        using:
+          foreign_key_constraint_on:
+            column: location_id
+            table: enrichment_locations
+      - comment: null
+        name: problem_locations
+        using:
+          foreign_key_constraint_on:
+            column: location_id
+            table: problem_locations
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - city
+          - country
+          - created_at
+          - id
+          - lat
+          - location
+          - location_name
+          - long
+          - state
+          - type
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships: []
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - location
+          - location_name
+          - lat
+          - long
+          - created_at
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - city
+          - country
+          - created_at
+          - id
+          - lat
+          - location
+          - location_name
+          - long
+          - state
+          - type
+          filter: {}
+        role: user
+      table: locations
+      update_permissions:
+      - comment: null
+        permission:
+          columns: []
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - id
+          - user_id
+          - problem_id
+          - solution_id
+          - enrichment_id
+          - discussion_id
+          - timestamp
+          - is_update
+          - is_read
+          - validated_by
+          - collaborator
+          - tag_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: collaborator
+      - comment: null
+        name: discussion
+        using:
+          foreign_key_constraint_on: discussion_id
+      - comment: null
+        name: enrichment
+        using:
+          foreign_key_constraint_on: enrichment_id
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: tag
+        using:
+          foreign_key_constraint_on: tag_id
+      - comment: null
+        name: userByUserId
+        using:
+          foreign_key_constraint_on: user_id
+      - comment: null
+        name: userByValidatedBy
+        using:
+          foreign_key_constraint_on: validated_by
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_read
+          - is_update
+          - collaborator
+          - discussion_id
+          - enrichment_id
+          - id
+          - problem_id
+          - solution_id
+          - tag_id
+          - user_id
+          - validated_by
+          - timestamp
+          filter: {}
+        role: user
+      table: notifications
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_read
+          - is_update
+          - collaborator
+          - discussion_id
+          - enrichment_id
+          - id
+          - problem_id
+          - solution_id
+          - tag_id
+          - user_id
+          - validated_by
+          - timestamp
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - discussion_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      - comment: null
+        name: discussion
+        using:
+          foreign_key_constraint_on: discussion_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - discussion_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - discussion_id
+          - user_id
+          filter: {}
+        role: user
+      table: discussion_voters
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - discussion_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - domain_id
+          - tag_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: tag
+        using:
+          foreign_key_constraint_on: tag_id
+      - comment: null
+        name: domain
+        using:
+          foreign_key_constraint_on: domain_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - domain_id
+          - tag_id
+          filter: {}
+        role: user
+      table: domain_tags
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - domain_id
+          - tag_id
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          columns:
+          - problem_id
+          - user_id
+          - created_at
+          - timestamp
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - problem_id
+          - timestamp
+          - created_at
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - user_id
+          - created_at
+          - timestamp
+          filter: {}
+        role: user
+      table: problem_owners
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - problem_id
+          - user_id
+          - created_at
+          - timestamp
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: discussion_mentions
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/discussion_mentions
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - discussion_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      - comment: null
+        name: discussion
+        using:
+          foreign_key_constraint_on: discussion_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - discussion_id
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - discussion_id
+          - user_id
+          filter: {}
+        role: user
+      table: discussion_mentions
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - discussion_id
+          - user_id
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - solution_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - solution_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - user_id
+          filter: {}
+        role: user
+      table: solution_watchers
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - solution_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: raster_overviews
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          columns:
+          - solution_id
+          - tag_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: tag
+        using:
+          foreign_key_constraint_on: tag_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - tag_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - tag_id
+          filter: {}
+        role: user
+      table: solutions_tags
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - solution_id
+          - tag_id
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: problem_validation
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/problems/validation
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - agree
+          - is_deleted
+          - problem_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - problem_id
+          - comment
+          - agree
+          - files
+          - created_at
+          - is_deleted
+          - edited_at
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - agree
+          - is_deleted
+          - problem_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: problem_validations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - agree
+          - is_deleted
+          - problem_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: tag_id
+            table: notifications
+      - comment: null
+        name: problems_tags
+        using:
+          foreign_key_constraint_on:
+            column: tag_id
+            table: problems_tags
+      - comment: null
+        name: solutions_tags
+        using:
+          foreign_key_constraint_on:
+            column: tag_id
+            table: solutions_tags
+      - comment: null
+        name: users_tags
+        using:
+          foreign_key_constraint_on:
+            column: tag_id
+            table: users_tags
+      - comment: null
+        name: domain_tags
+        using:
+          foreign_key_constraint_on:
+            column: tag_id
+            table: domain_tags
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - id
+          - name
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships: []
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - name
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - name
+          filter: {}
+        role: user
+      table: tags
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - id
+          - name
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: enrichment_voters
+        using:
+          foreign_key_constraint_on:
+            column: enrichment_id
+            table: enrichment_voters
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: enrichment_id
+            table: notifications
+      - comment: null
+        name: enrichment_locations
+        using:
+          foreign_key_constraint_on:
+            column: enrichment_id
+            table: enrichment_locations
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: enrichments_insert
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/enrichments/insert
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - is_deleted
+          - id
+          - min_population
+          - problem_id
+          - solution_id
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - max_population
+          - beneficiary_attributes
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - organization
+          - resources_needed
+          - created_at
+          - edited_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - problem_id
+          - solution_id
+          - description
+          - organization
+          - impact
+          - extent
+          - beneficiary_attributes
+          - resources_needed
+          - created_at
+          - edited_at
+          - image_urls
+          - video_urls
+          - is_deleted
+          - min_population
+          - featured_url
+          - featured_type
+          - embed_urls
+          - max_population
+          - attachments
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_deleted
+          - id
+          - min_population
+          - problem_id
+          - solution_id
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - max_population
+          - beneficiary_attributes
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - organization
+          - resources_needed
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: enrichments
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_deleted
+          - id
+          - min_population
+          - problem_id
+          - solution_id
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - max_population
+          - beneficiary_attributes
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - organization
+          - resources_needed
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: discussion_mentions
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: discussion_mentions
+      - comment: null
+        name: discussion_voters
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: discussion_voters
+      - comment: null
+        name: enrichment_voters
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: enrichment_voters
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: collaborator
+            table: notifications
+      - comment: null
+        name: notificationsByUserId
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: notifications
+      - comment: null
+        name: notificationsByValidatedBy
+        using:
+          foreign_key_constraint_on:
+            column: validated_by
+            table: notifications
+      - comment: null
+        name: problem_collaborators
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problem_collaborators
+      - comment: null
+        name: problem_owners
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problem_owners
+      - comment: null
+        name: problem_validations
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problem_validations
+      - comment: null
+        name: problem_voters
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problem_voters
+      - comment: null
+        name: problem_watchers
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problem_watchers
+      - comment: null
+        name: solution_collaborators
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solution_collaborators
+      - comment: null
+        name: solution_owners
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solution_owners
+      - comment: null
+        name: solution_validations
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solution_validations
+      - comment: null
+        name: solution_voters
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solution_voters
+      - comment: null
+        name: solution_watchers
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solution_watchers
+      - comment: null
+        name: users_tags
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: users_tags
+      - comment: null
+        name: user_locations
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: user_locations
+      - comment: null
+        name: discussions
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: discussions
+      - comment: null
+        name: enrichments
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: enrichments
+      - comment: null
+        name: problems
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: problems
+      - comment: null
+        name: solutions
+        using:
+          foreign_key_constraint_on:
+            column: user_id
+            table: solutions
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+          update:
+            columns:
+            - is_beneficiary
+            - is_entrepreneur
+            - is_expert
+            - is_funder
+            - is_government
+            - is_incubator
+            - is_innovator
+            - is_ngo
+            - notify_app
+            - notify_email
+            - notify_sms
+            - id
+            - organization_id
+            - photo_url
+            - email
+            - name
+            - organization
+            - phone_number
+            - qualification
+            - created_at
+            - edited_at
+            - is_verified
+            - interests_private
+            - email_private
+            - persona_private
+            - organization_private
+            - location_private
+            - number_private
+        headers: []
+        name: index_users
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://elasticsearch-microservice.dev.jaagalabs.com/user_index
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - created_at
+          - edited_at
+          - email
+          - email_private
+          - id
+          - interests_private
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - is_verified
+          - location_private
+          - name
+          - notify_app
+          - notify_email
+          - notify_sms
+          - number_private
+          - organization
+          - organization_id
+          - organization_private
+          - otp
+          - password
+          - persona_private
+          - phone_number
+          - photo_url
+          - qualification
+          - token
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: organizationByOrganizationId
+        using:
+          foreign_key_constraint_on: organization_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - created_at
+          - email_private
+          - id
+          - interests_private
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - location_private
+          - name
+          - number_private
+          - organization
+          - organization_id
+          - organization_private
+          - persona_private
+          - photo_url
+          - qualification
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - created_at
+          - edited_at
+          - email
+          - email_private
+          - id
+          - interests_private
+          - is_admin
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - location_private
+          - name
+          - notify_app
+          - notify_email
+          - notify_sms
+          - number_private
+          - organization
+          - organization_id
+          - organization_private
+          - persona_private
+          - phone_number
+          - photo_url
+          - qualification
+          filter: {}
+        role: user
+      table: users
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - created_at
+          - edited_at
+          - email
+          - email_private
+          - id
+          - interests_private
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - location_private
+          - name
+          - notify_app
+          - notify_email
+          - notify_sms
+          - number_private
+          - organization
+          - organization_id
+          - organization_private
+          - otp
+          - password
+          - persona_private
+          - phone_number
+          - photo_url
+          - qualification
+          - token
+          filter:
+            id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - enrichment_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: enrichment
+        using:
+          foreign_key_constraint_on: enrichment_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - enrichment_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - enrichment_id
+          - user_id
+          filter: {}
+        role: user
+      table: enrichment_voters
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - enrichment_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: enrichments
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: enrichments
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: notifications
+      - comment: null
+        name: problem_collaborators
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_collaborators
+      - comment: null
+        name: problem_owners
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_owners
+      - comment: null
+        name: problem_validations
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_validations
+      - comment: null
+        name: problem_voters
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_voters
+      - comment: null
+        name: problem_watchers
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_watchers
+      - comment: null
+        name: problems_solutions
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problems_solutions
+      - comment: null
+        name: problems_tags
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problems_tags
+      - comment: null
+        name: problem_locations
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: problem_locations
+      - comment: null
+        name: discussions
+        using:
+          foreign_key_constraint_on:
+            column: problem_id
+            table: discussions
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - problem_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+          update:
+            columns:
+            - is_deleted
+            - is_draft
+            - id
+            - min_population
+            - organization_id
+            - user_id
+            - attachments
+            - embed_urls
+            - image_urls
+            - reported_by
+            - video_urls
+            - max_population
+            - beneficiary_attributes
+            - description
+            - extent
+            - featured_type
+            - featured_url
+            - impact
+            - organization
+            - resources_needed
+            - title
+            - created_at
+            - edited_at
+            - updated_at
+        headers: []
+        name: index_problems
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://elasticsearch-microservice.dev.jaagalabs.com/problem_index
+      - definition:
+          enable_manual: false
+          update:
+            columns:
+            - is_deleted
+            - min_population
+            - organization_id
+            - user_id
+            - attachments
+            - embed_urls
+            - image_urls
+            - reported_by
+            - video_urls
+            - max_population
+            - beneficiary_attributes
+            - description
+            - extent
+            - featured_type
+            - featured_url
+            - impact
+            - organization
+            - resources_needed
+            - title
+            - created_at
+            - edited_at
+            - updated_at
+        headers: []
+        name: problems_update
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/problems/update
+      - definition:
+          enable_manual: false
+          update:
+            columns:
+            - is_draft
+        headers: []
+        name: problems_insert
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/problems/insert
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - problem_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          columns:
+          - is_deleted
+          - is_draft
+          - id
+          - min_population
+          - organization_id
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - reported_by
+          - video_urls
+          - max_population
+          - beneficiary_attributes
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - organization
+          - resources_needed
+          - title
+          - created_at
+          - edited_at
+          - updated_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - title
+          - description
+          - resources_needed
+          - organization
+          - impact
+          - extent
+          - beneficiary_attributes
+          - reported_by
+          - created_at
+          - image_urls
+          - video_urls
+          - is_deleted
+          - min_population
+          - featured_url
+          - embed_urls
+          - featured_type
+          - is_draft
+          - max_population
+          - attachments
+          - updated_at
+          - edited_at
+          - organization_id
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_deleted
+          - is_draft
+          - id
+          - min_population
+          - organization_id
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - reported_by
+          - video_urls
+          - max_population
+          - beneficiary_attributes
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - organization
+          - resources_needed
+          - title
+          - created_at
+          - edited_at
+          - updated_at
+          filter: {}
+        role: user
+      table: problems
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - attachments
+          - beneficiary_attributes
+          - created_at
+          - description
+          - edited_at
+          - embed_urls
+          - extent
+          - featured_type
+          - featured_url
+          - id
+          - image_urls
+          - impact
+          - is_deleted
+          - is_draft
+          - max_population
+          - min_population
+          - organization
+          - organization_id
+          - resources_needed
+          - title
+          - updated_at
+          - user_id
+          - video_urls
+          filter:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - problem_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - email
+          - id
+          - name
+          - organization
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: organizationByOrganization
+        using:
+          foreign_key_constraint_on: organization
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - accepted
+          - email
+          - id
+          - name
+          - organization
+          filter: {}
+        role: user
+      table: invited_users
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - email
+          - id
+          - name
+          - organization
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - problem_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - problem_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - user_id
+          filter: {}
+        role: user
+      table: problem_voters
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - problem_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: problem_collaboration
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/problems/collaboration
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - problem_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - problem_id
+          - intent
+          - created_at
+          - edited_at
+          - is_ngo
+          - is_entrepreneur
+          - is_expert
+          - is_incubator
+          - is_innovator
+          - is_funder
+          - is_government
+          - is_beneficiary
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - problem_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: problem_collaborators
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - problem_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          columns:
+          - problem_id
+          - solution_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - solution_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - solution_id
+          filter: {}
+        role: user
+      table: problems_solutions
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - problem_id
+          - solution_id
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - problem_id
+          - tag_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: tag
+        using:
+          foreign_key_constraint_on: tag_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - tag_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: true
+          columns:
+          - problem_id
+          - tag_id
+          filter: {}
+        role: user
+      table: problems_tags
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - problem_id
+          - tag_id
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: solution_validation
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/solutions/validation
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - agree
+          - is_deleted
+          - solution_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - comment
+          - agree
+          - files
+          - created_at
+          - edited_at
+          - is_deleted
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - agree
+          - is_deleted
+          - solution_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: solution_validations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - agree
+          - is_deleted
+          - solution_id
+          - user_id
+          - files
+          - comment
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: domain_tags
+        using:
+          foreign_key_constraint_on:
+            column: domain_id
+            table: domain_tags
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - id
+          - colour
+          - url
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships: []
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns: []
+          filter: {}
+        role: user
+      table: domains
+      update_permissions:
+      - comment: null
+        permission:
+          columns: []
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: discussions
+        using:
+          foreign_key_constraint_on:
+            column: linked_comment_id
+            table: discussions
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: discussion_id
+            table: notifications
+      - comment: null
+        name: discussion_mentions
+        using:
+          foreign_key_constraint_on:
+            column: discussion_id
+            table: discussion_mentions
+      - comment: null
+        name: discussion_voters
+        using:
+          foreign_key_constraint_on:
+            column: discussion_id
+            table: discussion_voters
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - id
+          - problem_id
+          - created_at
+          - text
+          - solution_id
+          - linked_comment_id
+          - attachments
+          - is_deleted
+          - edited_at
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: discussion
+        using:
+          foreign_key_constraint_on: linked_comment_id
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - problem_id
+          - created_at
+          - text
+          - solution_id
+          - linked_comment_id
+          - attachments
+          - is_deleted
+          - edited_at
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_deleted
+          - id
+          - linked_comment_id
+          - problem_id
+          - solution_id
+          - user_id
+          - attachments
+          - text
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: discussions
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_deleted
+          - id
+          - linked_comment_id
+          - problem_id
+          - solution_id
+          - user_id
+          - attachments
+          - text
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          columns:
+          - solution_id
+          - user_id
+          - created_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - solution_id
+          - created_at
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - solution_id
+          - created_at
+          filter: {}
+        role: user
+      table: solution_owners
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - solution_id
+          - user_id
+          - created_at
+          filter:
+            _or:
+            - solution:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - solution:
+                solution_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - tag_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: tag
+        using:
+          foreign_key_constraint_on: tag_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - tag_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - tag_id
+          - user_id
+          filter: {}
+        role: user
+      table: users_tags
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - tag_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: raster_columns
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - problem_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - problem_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - user_id
+          filter: {}
+        role: user
+      table: problem_watchers
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - problem_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          columns:
+          - problem_id
+          - location_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: problem
+        using:
+          foreign_key_constraint_on: problem_id
+      - comment: null
+        name: location
+        using:
+          foreign_key_constraint_on: location_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - problem_id
+          - location_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - location_id
+          - problem_id
+          filter: {}
+        role: user
+      table: problem_locations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - location_id
+          - problem_id
+          filter:
+            _or:
+            - problem:
+                user_id:
+                  _eq: X-Hasura-User-Id
+            - problem:
+                problem_owners:
+                  user_id:
+                    _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: spatial_ref_sys
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: geography_columns
+      update_permissions: []
+    - array_relationships:
+      - comment: null
+        name: discussions
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: discussions
+      - comment: null
+        name: notifications
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: notifications
+      - comment: null
+        name: problems_solutions
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: problems_solutions
+      - comment: null
+        name: solution_collaborators
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solution_collaborators
+      - comment: null
+        name: solution_owners
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solution_owners
+      - comment: null
+        name: solution_validations
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solution_validations
+      - comment: null
+        name: solution_voters
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solution_voters
+      - comment: null
+        name: solution_watchers
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solution_watchers
+      - comment: null
+        name: solutions_tags
+        using:
+          foreign_key_constraint_on:
+            column: solution_id
+            table: solutions_tags
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - solution_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+          update:
+            columns:
+            - is_deleted
+            - is_draft
+            - deployment
+            - id
+            - max_budget
+            - min_budget
+            - user_id
+            - attachments
+            - embed_urls
+            - image_urls
+            - video_urls
+            - beneficiary_attributes
+            - budget_title
+            - description
+            - extent
+            - featured_type
+            - featured_url
+            - impact
+            - pilots
+            - resources
+            - technology
+            - timeline
+            - title
+            - website_url
+            - created_at
+            - edited_at
+            - updated_at
+        headers: []
+        name: index_solutions
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://elasticsearch-microservice.dev.jaagalabs.com/solution_index
+      - definition:
+          enable_manual: false
+          update:
+            columns:
+            - is_draft
+        headers: []
+        name: solutions_insert
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/solutions/insert
+      - definition:
+          enable_manual: false
+          update:
+            columns:
+            - is_deleted
+            - deployment
+            - id
+            - max_budget
+            - min_budget
+            - user_id
+            - attachments
+            - embed_urls
+            - image_urls
+            - video_urls
+            - beneficiary_attributes
+            - budget_title
+            - description
+            - extent
+            - featured_type
+            - featured_url
+            - impact
+            - pilots
+            - resources
+            - technology
+            - timeline
+            - title
+            - website_url
+            - created_at
+            - edited_at
+            - updated_at
+        headers: []
+        name: solutions_update
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/solutions/update
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - solution_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          columns:
+          - is_deleted
+          - is_draft
+          - deployment
+          - id
+          - max_budget
+          - min_budget
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - beneficiary_attributes
+          - budget_title
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - pilots
+          - resources
+          - technology
+          - timeline
+          - title
+          - website_url
+          - created_at
+          - edited_at
+          - updated_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - title
+          - description
+          - created_at
+          - technology
+          - impact
+          - website_url
+          - deployment
+          - image_urls
+          - video_urls
+          - is_deleted
+          - featured_url
+          - embed_urls
+          - featured_type
+          - is_draft
+          - attachments
+          - updated_at
+          - timeline
+          - pilots
+          - resources
+          - extent
+          - beneficiary_attributes
+          - min_budget
+          - max_budget
+          - budget_title
+          - edited_at
+          - user_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_deleted
+          - is_draft
+          - deployment
+          - id
+          - max_budget
+          - min_budget
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - beneficiary_attributes
+          - budget_title
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - pilots
+          - resources
+          - technology
+          - timeline
+          - title
+          - website_url
+          - created_at
+          - edited_at
+          - updated_at
+          filter: {}
+        role: user
+      table: solutions
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_deleted
+          - is_draft
+          - deployment
+          - id
+          - max_budget
+          - min_budget
+          - user_id
+          - attachments
+          - embed_urls
+          - image_urls
+          - video_urls
+          - beneficiary_attributes
+          - budget_title
+          - description
+          - extent
+          - featured_type
+          - featured_url
+          - impact
+          - pilots
+          - resources
+          - technology
+          - timeline
+          - title
+          - website_url
+          - created_at
+          - edited_at
+          - updated_at
+          filter:
+            _or:
+            - user_id:
+                _eq: X-Hasura-User-Id
+            - solution_owners:
+                user_id:
+                  _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        headers: []
+        name: solution_collaboration
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: https://sa-notifications-microservice-dev.dev.jaagalabs.com/solutions/collaboration
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - solution_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - user_id
+          - intent
+          - edited_at
+          - is_ngo
+          - is_innovator
+          - is_entrepreneur
+          - is_expert
+          - is_incubator
+          - is_funder
+          - is_government
+          - is_beneficiary
+          - created_at
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - solution_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          filter: {}
+        role: user
+      table: solution_collaborators
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - is_beneficiary
+          - is_entrepreneur
+          - is_expert
+          - is_funder
+          - is_government
+          - is_incubator
+          - is_innovator
+          - is_ngo
+          - solution_id
+          - user_id
+          - intent
+          - created_at
+          - edited_at
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - solution_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: solution
+        using:
+          foreign_key_constraint_on: solution_id
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - solution_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - solution_id
+          - user_id
+          filter: {}
+        role: user
+      table: solution_voters
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - solution_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            enrichment:
+              user_id:
+                _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            enrichment:
+              user_id:
+                _eq: X-Hasura-User-Id
+          columns:
+          - enrichment_id
+          - location_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: enrichment
+        using:
+          foreign_key_constraint_on: enrichment_id
+      - comment: null
+        name: location
+        using:
+          foreign_key_constraint_on: location_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - enrichment_id
+          - location_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - enrichment_id
+          - location_id
+          filter: {}
+        role: user
+      table: enrichment_locations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - enrichment_id
+          - location_id
+          filter:
+            enrichment:
+              user_id:
+                _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user_id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - location_id
+          - user_id
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: user_id
+      - comment: null
+        name: location
+        using:
+          foreign_key_constraint_on: location_id
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - user_id
+          - location_id
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - location_id
+          - user_id
+          filter: {}
+        role: user
+      table: user_locations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - location_id
+          - user_id
+          filter:
+            user_id:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships:
+      - comment: null
+        name: invited_users
+        using:
+          foreign_key_constraint_on:
+            column: organization
+            table: invited_users
+      - comment: null
+        name: users
+        using:
+          foreign_key_constraint_on:
+            column: organization_id
+            table: users
+      delete_permissions:
+      - comment: null
+        permission:
+          filter: {}
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check: {}
+          columns:
+          - id
+          - name
+          set: {}
+        role: user
+      is_enum: false
+      object_relationships: []
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - name
+          filter: {}
+        role: public
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          - name
+          filter: {}
+        role: user
+      table: organizations
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - id
+          - name
+          filter: {}
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: geometry_columns
+      update_permissions: []
+  type: replace_metadata
