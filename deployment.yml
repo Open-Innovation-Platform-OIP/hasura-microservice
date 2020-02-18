@@ -66,9 +66,9 @@ spec:
         app: oip-postgres-dev
     spec:
       volumes:
-      - name: db-volume
+      - name: oip-postgres-volume-dev
         persistentVolumeClaim:
-          claimName: db-pvc
+          claimName: oip-postgres-pvc-dev
       containers:
       - name: oip-postgres-dev
         image: postgres:11
@@ -76,7 +76,7 @@ spec:
         - containerPort: 5432
         volumeMounts:
         - mountPath: "/var/lib/postgresql"
-          name: db-volume
+          name: oip-postgres-volume-dev
         env:
           - name: POSTGRES_DB
             value: postgres
@@ -88,7 +88,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: db-pvc
+  name: oip-postgres-pvc-dev
 spec:
   accessModes:
   - ReadWriteOnce
