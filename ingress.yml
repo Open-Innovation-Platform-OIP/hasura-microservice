@@ -1,25 +1,25 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: oip-hasura-ingress
+  name: oip-hasura-dev-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   tls:
   - hosts:
-    - oip-hasura.k8s.jaagalabs.com
-    secretName: oip-hasura-tls
+    - oip-hasura-dev.k8s.jaagalabs.com
+    secretName: oip-hasura-dev-tls
   rules:  
-  - host: oip-hasura.k8s.jaagalabs.com
+  - host: oip-hasura-dev.k8s.jaagalabs.com
     http:
       paths:
       - backend:
-          serviceName: oip-hasura
+          serviceName: oip-hasura-dev
           servicePort: 80
-  - host: oip-postgres.k8s.jaagalabs.com
+  - host: oip-postgres-dev.k8s.jaagalabs.com
     http:
       paths:
       - backend:
-          serviceName: oip-postgres
+          serviceName: oip-postgres-dev
           servicePort: 80

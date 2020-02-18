@@ -1,36 +1,36 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: oip-hasura
+  name: oip-hasura-dev
 spec:
   ports:
   - port: 80
     targetPort: 8080
   selector:
-    app: oip-hasura
+    app: oip-hasura-dev
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oip-hasura
+  name: oip-hasura-dev
 spec:
   selector:
     matchLabels:
-      app: oip-hasura
+      app: oip-hasura-dev
   replicas: 1
   template:
     metadata:
       labels:
-        app: oip-hasura
+        app: oip-hasura-dev
     spec:
       containers:
-      - name: oip-hasura
+      - name: oip-hasura-dev
         image: hasura/graphql-engine:v1.0.0
         ports:
         - containerPort: 8080
         env:
           - name: HASURA_GRAPHQL_DATABASE_URL
-            value: postgres://postgres:postgres@oip-postgres:80/postgres
+            value: postgres://postgres:postgres@oip-postgres-dev:80/postgres
           - name: HASURA_GRAPHQL_ENABLE_CONSOLE
             value: "true"
           - name: HASURA_GRAPHQL_ADMIN_SECRET
@@ -43,34 +43,34 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oip-postgres
+  name: oip-postgres-dev
 spec:
   ports:
   - port: 80
     targetPort: 5432
   selector:
-    app: oip-postgres
+    app: oip-postgres-dev
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oip-postgres
+  name: oip-postgres-dev
 spec:
   selector:
     matchLabels:
-      app: oip-postgres
+      app: oip-postgres-dev
   replicas: 1
   template:
     metadata:
       labels:
-        app: oip-postgres
+        app: oip-postgres-dev
     spec:
       volumes:
       - name: db-volume
         persistentVolumeClaim:
           claimName: db-pvc
       containers:
-      - name: oip-postgres
+      - name: oip-postgres-dev
         image: postgres:11
         ports:
         - containerPort: 5432
