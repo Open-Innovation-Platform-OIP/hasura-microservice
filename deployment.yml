@@ -30,7 +30,7 @@ spec:
         - containerPort: 8080
         env:
           - name: HASURA_GRAPHQL_DATABASE_URL
-            value: postgres://postgres:postgres@oip-postgres:80/postgres
+            value: postgres://postgres:postgres@oip-postgres-prod:80/postgres
           - name: HASURA_GRAPHQL_ENABLE_CONSOLE
             value: "true"
           - name: HASURA_GRAPHQL_ADMIN_SECRET
@@ -43,34 +43,34 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: oip-postgres
+  name: oip-postgres-prod
 spec:
   ports:
   - port: 80
     targetPort: 5432
   selector:
-    app: oip-postgres
+    app: oip-postgres-prod
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oip-postgres
+  name: oip-postgres-prod
 spec:
   selector:
     matchLabels:
-      app: oip-postgres
+      app: oip-postgres-prod
   replicas: 1
   template:
     metadata:
       labels:
-        app: oip-postgres
+        app: oip-postgres-prod
     spec:
       volumes:
       - name: oip-postgres-volume-prod
         persistentVolumeClaim:
           claimName: oip-postgres-pvc-prod
       containers:
-      - name: oip-postgres
+      - name: oip-postgres-prod
         image: postgres:11
         ports:
         - containerPort: 5432
