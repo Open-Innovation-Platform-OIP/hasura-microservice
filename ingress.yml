@@ -8,16 +8,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - oip-hasura-dev.k8s.jaagalabs.com
+    - oip-hasura-dev.oip.dev.code-alpha.org
     secretName: oip-hasura-dev-tls
   rules:  
-  - host: oip-hasura-dev.k8s.jaagalabs.com
+  - host: oip-hasura-dev.oip.dev.code-alpha.org
     http:
       paths:
       - backend:
           serviceName: oip-hasura-dev
           servicePort: 80
-  - host: oip-postgres-dev.k8s.jaagalabs.com
+  - host: oip-postgres-dev.oip.dev.code-alpha.org
     http:
       paths:
       - backend:
